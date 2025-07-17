@@ -30,7 +30,7 @@ module.exports.showCampground = async (req,res)=>{
     res.render('campgrounds/show',{campground});
 };
 
-module.exports.createCampground = async(req,res,next)=>{
+module.exports.createCampground = async(req,res)=>{
     const geoData = await geocoder.forwardGeocode({
         query:req.body.campground.location
         ,limit:1
@@ -42,7 +42,6 @@ module.exports.createCampground = async(req,res,next)=>{
     await campground.save();
     req.flash('success', 'a new camp is registrated');
     res.redirect(`/campgrounds/${campground._id}`);
-    next(e);
 };
 
 module.exports.renderEditForm = async (req,res)=>{
